@@ -2,6 +2,7 @@
 from __future__ import absolute_import
 from __future__ import division
 
+import abc
 import collections
 import random
 import re
@@ -30,7 +31,9 @@ class Encoder(object):
         """
         Encoder._encoders[self.arch].append(self)
 
+    @abc.abstractmethod
     def __call__(self, raw_bytes, avoid, pcreg):
+        # type: (bytes, set[bytes], str) -> None
         """avoid(raw_bytes, avoid)
 
         Arguments:

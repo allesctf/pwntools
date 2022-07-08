@@ -1277,6 +1277,7 @@ class tube(Timeout, Logger):
 
     # The minimal interface to be implemented by a child
     def recv_raw(self, numb):
+        # type: (int) -> None
         """recv_raw(numb) -> str
 
         Should not be called directly. Receives data without using the buffer
@@ -1290,6 +1291,7 @@ class tube(Timeout, Logger):
         raise EOFError('Not implemented')
 
     def send_raw(self, data):
+        # type: (bytes) -> None
         """send_raw(data)
 
         Should not be called directly. Sends data to the tube.
@@ -1301,6 +1303,7 @@ class tube(Timeout, Logger):
         raise EOFError('Not implemented')
 
     def settimeout_raw(self, timeout):
+        # type: (int) -> None
         """settimeout_raw(timeout)
 
         Should not be called directly. Sets the timeout for
@@ -1323,6 +1326,7 @@ class tube(Timeout, Logger):
             pass
 
     def can_recv_raw(self, timeout):
+         # type: (int) -> bool
         """can_recv_raw(timeout) -> bool
 
         Should not be called directly. Returns True, if
@@ -1333,6 +1337,7 @@ class tube(Timeout, Logger):
         raise NotImplementedError()
 
     def connected_raw(self, direction):
+         # type: (str) -> bool
         """connected(direction = 'any') -> bool
 
         Should not be called directly.  Returns True iff the
@@ -1352,6 +1357,7 @@ class tube(Timeout, Logger):
         # But this causes issues with the unit tests.
 
     def fileno(self):
+        # type: () -> int
         """fileno() -> int
 
         Returns the file number used for reading.
@@ -1360,6 +1366,7 @@ class tube(Timeout, Logger):
         raise NotImplementedError()
 
     def shutdown_raw(self, direction):
+        # type: (str) -> None
         """shutdown_raw(direction)
 
         Should not be called directly.  Closes the tube for further reading or
