@@ -303,7 +303,6 @@ arg_doc          = {'p': 'number (int): Number to convert',
 rv_doc           = {'p': 'The packed number as a byte string',
                     'u': 'The unpacked number'}
 
-
 def make_single(op,size,end,sign):
     name = '_%s%s%s%s' % (op, size, end, sign)
     fmt  = sizes[size]
@@ -323,12 +322,45 @@ def make_single(op,size,end,sign):
             return struct_op(data)
     routine.__name__ = routine.__qualname__ = name
 
-    return name, routine
+    return routine
 
 
-for op,size,end,sign in iters.product(ops, sizes, ends, signs):
-    name, routine = make_single(op,size,end,sign)
-    setattr(mod, name, routine)
+_p8lu = make_single('p', 8, 'l', 'u')
+_p8ls = make_single('p', 8, 'l', 's')
+_p8bu = make_single('p', 8, 'b', 'u')
+_p8bs = make_single('p', 8, 'b', 's')
+_u8lu = make_single('u', 8, 'l', 'u')
+_u8ls = make_single('u', 8, 'l', 's')
+_u8bu = make_single('u', 8, 'b', 'u')
+_u8bs = make_single('u', 8, 'b', 's')
+
+_p16lu = make_single('p', 16, 'l', 'u')
+_p16ls = make_single('p', 16, 'l', 's')
+_p16bu = make_single('p', 16, 'b', 'u')
+_p16bs = make_single('p', 16, 'b', 's')
+_u16lu = make_single('u', 16, 'l', 'u')
+_u16ls = make_single('u', 16, 'l', 's')
+_u16bu = make_single('u', 16, 'b', 'u')
+_u16bs = make_single('u', 16, 'b', 's')
+
+_p32lu = make_single('p', 32, 'l', 'u')
+_p32ls = make_single('p', 32, 'l', 's')
+_p32bu = make_single('p', 32, 'b', 'u')
+_p32bs = make_single('p', 32, 'b', 's')
+_u32lu = make_single('u', 32, 'l', 'u')
+_u32ls = make_single('u', 32, 'l', 's')
+_u32bu = make_single('u', 32, 'b', 'u')
+_u32bs = make_single('u', 32, 'b', 's')
+
+_p64lu = make_single('p', 64, 'l', 'u')
+_p64ls = make_single('p', 64, 'l', 's')
+_p64bu = make_single('p', 64, 'b', 'u')
+_p64bs = make_single('p', 64, 'b', 's')
+_u64lu = make_single('u', 64, 'l', 'u')
+_u64ls = make_single('u', 64, 'l', 's')
+_u64bu = make_single('u', 64, 'b', 'u')
+_u64bs = make_single('u', 64, 'b', 's')
+
 
 
 #
@@ -368,12 +400,17 @@ def make_multi(op, size):
         %s
     """ % (op, size, return_types[op], op_verbs[op].title(), size, arg_doc[op], rv_doc[op])
 
-    return name, routine
+    return routine
 
+p8 = make_multi('p', 8)
+u8 = make_multi('u', 8)
+p16 = make_multi('p', 16)
+u16 = make_multi('u', 16)
+p32 = make_multi('p', 32)
+u32 = make_multi('u', 32)
+p64 = make_multi('p', 64)
+u64 = make_multi('u', 64)
 
-for op,size in iters.product(ops, sizes):
-    name, routine = make_multi(op,size)
-    setattr(mod, name, routine)
 
 def make_packer(word_size = None, sign = None, **kwargs):
     """make_packer(word_size = None, endianness = None, sign = None) -> number → str
